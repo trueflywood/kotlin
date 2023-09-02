@@ -1,6 +1,6 @@
 package com.example.flywood.kotlin
 
-import android.content.Context
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.constraintlayout.widget.Guideline
+import androidx.core.content.ContextCompat
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var button_2_id: Int = 0
@@ -36,6 +37,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button_1.id =button_1_id
 
         button_1.setOnClickListener(this)
+        button_1.setBackgroundResource(R.drawable.button_shape)
+        button_1.setTextColor(ContextCompat.getColor(this, R.color.white))
+        button_1.textSize = 40f
+        button_1.setTypeface(null, Typeface.BOLD_ITALIC); // for Bold and Italic
 
         constraintLayout.addView(button_1)
 
@@ -47,20 +52,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button_2_id =Button.generateViewId()
         button_2.id =button_2_id
         button_2.setOnClickListener(this)
+        button_2.setBackgroundResource(R.drawable.button_shape)
+        button_2.setTextColor(ContextCompat.getColor(this, R.color.white))
+        button_2.textSize = 40f
 
         constraintLayout.addView(button_2)
 
-
-
-        // Create a horizontal & vertical guidelines and add them to the constraintLayout.
-//        val verticalGL = getGuideline(this, ConstraintLayout.LayoutParams.VERTICAL)
-//        val horizontalGL = getGuideline(this, ConstraintLayout.LayoutParams.HORIZONTAL)
-//        constraintLayout.addView(verticalGL)
-//        constraintLayout.addView(horizontalGL)
-
-        // Set the position of the guidelines.
-//        verticalGL.setGuidelineBegin(x) // absolute x position
-//        horizontalGL.setGuidelineBegin(y) // absolute y position
+        // выравнивание кнопок
 
         val horizontalGL = Guideline(this)
         horizontalGL.id = Guideline.generateViewId()
@@ -73,8 +71,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         horizontalGL.setGuidelineBegin(300)
         constraintLayout.addView(horizontalGL)
 
-
-
+         val horizontalGL_2 = Guideline(this)
+        horizontalGL_2.id = Guideline.generateViewId()
+        val lp_2 = ConstraintLayout.LayoutParams(
+            ConstraintLayout.LayoutParams.WRAP_CONTENT,
+            ConstraintLayout.LayoutParams.WRAP_CONTENT
+        )
+        lp_2.orientation = ConstraintLayout.LayoutParams.HORIZONTAL
+        horizontalGL_2.layoutParams = lp_2
+        horizontalGL_2.setGuidelineBegin(20)
+        constraintLayout.addView(horizontalGL_2)
 
 
 
@@ -94,6 +100,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             ConstraintSet.LEFT,
             0
         )
+        constraintSet.connect(
+            button_1.id,
+            ConstraintSet.TOP,
+            horizontalGL_2.id,
+            ConstraintSet.BOTTOM,
+            0
+        )
+
+
         constraintSet.applyTo(constraintLayout)
 
          val constraintSet_2 = ConstraintSet()
@@ -122,9 +137,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         constraintSet_2.applyTo(constraintLayout)
 
-
-
-
     }
 
     override fun onClick(v: View?) {
@@ -143,15 +155,4 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         Log.i("flywood", "click " + v.id.toString())
     }
 
-    private fun getGuideline(context: Context, orientation: Int): Guideline {
-        val guideline = Guideline(context)
-        guideline.id = Guideline.generateViewId()
-        val lp = ConstraintLayout.LayoutParams(
-            ConstraintLayout.LayoutParams.WRAP_CONTENT,
-            ConstraintLayout.LayoutParams.WRAP_CONTENT
-        )
-        lp.orientation = orientation
-        guideline.layoutParams = lp
-        return guideline
-    }
 }
