@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Kotlin</string>
     <string name="button_1">button 1 text</string>
+    <string name="plus_button">+</string>
+    <string name="minus_button">-</string>
+    <string name="increment_peffix">Number</string>
+    <string name="decrement_preffix">Number</string>
 </resources>

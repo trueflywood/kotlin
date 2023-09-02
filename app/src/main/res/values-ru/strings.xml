@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Kotlin</string>
+    <string name="button_1">Текст первой кнопки</string>
+    <string name="plus_button">+</string>
+    <string name="minus_button">-</string>
+    <string name="increment_peffix">Номер</string>
+    <string name="decrement_preffix">Номер</string>
 </resources>
