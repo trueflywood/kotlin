@@ -1,6 +1,11 @@
 package com.example.flywood.kotlin
 
+import android.content.Context
 import android.graphics.Typeface
+import android.hardware.camera2.CameraAccessException
+import android.hardware.camera2.CameraCharacteristics
+import android.hardware.camera2.CameraCharacteristics.*
+import android.hardware.camera2.CameraManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -18,6 +23,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var button_2_id: Int = 0
     private var button_1_id: Int = 0
     private var count: Int = 0
+
+    private var flashLightStatus: Boolean = false
+    private var isFlash = false
+    private var cameraId = ""
+    private lateinit var cameraManager: CameraManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -137,6 +147,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         constraintSet_2.applyTo(constraintLayout)
 
+        // определение камеры со вспышкой
+
+        cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
+        var cameraIndex = 0
+
+        Log.i("Flywood", "Camera count: " + cameraManager.cameraIdList.size)
+
+        while (!isFlash && cameraIndex < cameraManager.cameraIdList.size) {
+
+            cameraId = cameraManager.cameraIdList[cameraIndex++]
+            val cameraCharacteristics = cameraManager.getCameraCharacteristics(cameraId)
+            isFlash = cameraCharacteristics.get(FLASH_INFO_AVAILABLE) === true
+        }
+        Log.i("flywood", "Is flash: $isFlash")
+
     }
 
     override fun onClick(v: View?) {
@@ -151,8 +176,34 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 val toast = Toast.makeText(applicationContext, getString(R.string.increment_peffix) + " (" + (--count).toString() + ")" , Toast.LENGTH_SHORT)
                 toast.show()
             }
+            R.id.flash_button -> {
+                Toast.makeText(applicationContext, "Flash button Click", Toast.LENGTH_SHORT).show()
+
+
+//                val cameraCharacteristics = cameraManager.getCameraCharacteristics(cameraId)
+//                isFlash = cameraCharacteristics.get(FLASH_MODE_OFF) === true
+
+
+                if (isFlash && cameraId.isNotEmpty()) {
+                    if (!flashLightStatus) {
+                        try {
+                            cameraManager.setTorchMode(cameraId, true)
+                            flashLightStatus = true
+
+                        } catch (e: CameraAccessException) {
+                        }
+                    } else {
+                        try {
+                            cameraManager.setTorchMode(cameraId, false)
+                            flashLightStatus = false
+                        } catch (e: CameraAccessException) {
+                        }
+                    }
+                } else {
+                    Toast.makeText(applicationContext, "Flash not found", Toast.LENGTH_LONG).show()
+                }
+            }
         }
-        Log.i("flywood", "click " + v.id.toString())
     }
 
 }
