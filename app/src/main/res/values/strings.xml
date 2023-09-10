@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Kotlin</string>
     <string name="button_1">button 1 text</string>
+    <string name="goToAct1">Go To Activity 1</string>
+    <string name="goToAct2">Go To Activity 2</string>
+    <string name="goToAct3">Go To Activity 3</string>
+    <string name="goToAct4">Go To Activity 4</string>
+    <string name="goToMain">Go To Main</string>
 </resources>
