@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kotlin</string>
+    <string name="button_1">button 1 text</string>
+    <string name="action_edit">изменить</string>
+    <string name="action_view">показать</string>
+    <string name="action_file">фаил</string>
+    <string name="action_help">помощь</string>
+</resources>

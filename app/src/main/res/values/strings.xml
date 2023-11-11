@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Kotlin</string>
     <string name="button_1">button 1 text</string>
+
+    <string name="action_edit">edit</string>
+    <string name="action_view">view</string>
+    <string name="action_file">file</string>
+    <string name="action_help">help</string>
 </resources>
