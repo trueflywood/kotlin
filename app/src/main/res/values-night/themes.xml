@@ -3,5 +3,16 @@
     <style name="Base.Theme.Kotlin" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="actionBarStyle">
+            @style/myActionBar
+        </item>
+    </style>
+    <style name="myActionBar" parent="Widget.AppCompat.ActionBar.Solid">
+        <item name="background">
+            @color/red
+        </item>
+        <item name="backgroundColor">
+            @color/red
+        </item>
     </style>
 </resources>
